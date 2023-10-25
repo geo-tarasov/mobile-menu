@@ -16,3 +16,5 @@
 
 ## Результат
 <img src="https://github.com/geo-tarasov/mobile-menu/assets/88404017/a0f293da-aa8e-4af3-af47-ce117c1a50c4" width="300">
+
+###### Код представлен в ознакомительных целях, не для свободного использования
