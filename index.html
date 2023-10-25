@@ -1,0 +1,401 @@
+<div class="reinv_mobile-menu is-hidden-block2">
+
+
+
+</div>
+
+
+
+<script>
+    window.addEventListener("load", () => {
+        document.querySelector('body').appendChild(createElementFromHTML(`
+            <div class="reinv_empty_block">    
+            </div>
+        `));
+
+        function createElementFromHTML(htmlString) {
+            let div = document.createElement('div');
+            div.innerHTML = htmlString.trim();
+
+            // Change this to div.childNodes to support multiple top-level nodes.
+            return div.firstChild;
+        };
+    });
+
+    reinv_menuMainFunction();
+
+    function reinv_menuMainFunction() {
+
+        // НАЧАЛО ввода входных данных
+
+        let item1 = ['https://www.learn2reinvent.com/', 'https://learn2reinvent.com/', 'https://www.learn2reinvent.com', 'https://learn2reinvent.com'] // укажите массив ссылок для 1 пункта меню
+
+        let item1_settings = ['https://www.learn2reinvent.com/',
+            1
+        ] // массив настроек 1 пункта меню. 1) Ссылка, на которую ведет пункт меню 2) Точное совпадение ссылок? 1 - да, 0 - нет
+
+        let item2 = ['learn2reinvent.com/blog'] // укажите массив ссылок для 2 пункта меню
+
+        let item2_settings = ['https://www.learn2reinvent.com/blog',
+            0
+        ] // массив настроек 2 пункта меню. 1) Ссылка, на которую ведет пункт меню 2) Точное совпадение ссылок? 1 - да, 0 - нет
+
+        let item3 = ['learn2reinvent.com/contact-us'] // укажите массив ссылок для 3 пункта меню
+
+        let item3_settings = ['https://www.learn2reinvent.com/contact-us',
+            0
+        ] // массив настроек 3 пункта меню. 1) Ссылка, на которую ведет пункт меню 2) Точное совпадение ссылок? 1 - да, 0 - нет
+
+        let item4 = ['learn2reinvent.com/library', 'learn2reinvent.com/login'] // укажите массив ссылок для 4 пункта меню
+
+        let item4_settings = ['https://www.learn2reinvent.com/library',
+            0
+        ] // массив настроек 4 пункта меню. 1) Ссылка, на которую ведет пункт меню 2) Точное совпадение ссылок? 1 - да, 0 - нет
+
+        // КОНЕЦ ввода входных данных
+
+        let itsItem1 = false;
+        let itsItem2 = false;
+        let itsItem3 = false;
+        let itsItem4 = false;
+
+        let currentURL = window.location.href;
+
+        if (item4_settings[1] == 0) {
+            for (let i = 0; i < item4.length; i++) {
+                if (currentURL.includes(item4[i])) {
+                    itsItem4 = true;
+                }
+            }
+        } else {
+            for (let i = 0; i < item4.length; i++) {
+                if (currentURL === item4[i]) {
+                    itsItem4 = true;
+                }
+            }
+        }
+
+        if (!itsItem4) {
+            if (item3_settings[1] == 0) {
+                for (let i = 0; i < item3.length; i++) {
+                    if (currentURL.includes(item3[i])) {
+                        itsItem3 = true;
+                    }
+                }
+            } else {
+                for (let i = 0; i < item3.length; i++) {
+                    if (currentURL === item3[i]) {
+                        itsItem3 = true;
+                    }
+                }
+            }
+        }
+
+        if (!itsItem4 && !itsItem3) {
+            if (item2_settings[1] == 0) {
+                for (let i = 0; i < item2.length; i++) {
+                    if (currentURL.includes(item2[i])) {
+                        itsItem2 = true;
+                    }
+                }
+            } else {
+                for (let i = 0; i < item2.length; i++) {
+                    if (currentURL === item2[i]) {
+                        itsItem2 = true;
+                    }
+                }
+            }
+        }
+
+        if (!itsItem4 && !itsItem3 && !itsItem2) {
+            if (item1_settings[1] == 0) {
+                for (let i = 0; i < item1.length; i++) {
+                    if (currentURL.includes(item1[i])) {
+                        itsItem1 = true;
+                    }
+                }
+            } else {
+                for (let i = 0; i < item1.length; i++) {
+                    if (currentURL === item1[i]) {
+                        itsItem1 = true;
+                    }
+                }
+            }
+        }
+
+
+        let menuContainer = document.querySelector('.reinv_mobile-menu');
+
+        menuContainer.appendChild(createElementFromHTML(`
+
+        <nav class="slidemenu">
+
+            <!-- Item 1 -->
+            <input type="radio" name="slideItem" id="slide-item-1" class="slide-toggle"${itsItem1 ? ' checked' : ''} />
+            <label for="slide-item-1">
+                <div class="reinv_svg-container">
+                    <svg width="100%" height="100%" viewBox="0 0 25 28" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M23.1667 8.66668L15.1667 1.65334C14.4333 0.997402 13.4839 0.634766 12.5 0.634766C11.5161 0.634766 10.5667 0.997402 9.83334 1.65334L1.83334 8.66668C1.40983 9.04544 1.07187 9.51008 0.841967 10.0297C0.612063 10.5493 0.495488 11.1119 0.500004 11.68V23.3333C0.500004 24.3942 0.921432 25.4116 1.67158 26.1618C2.42172 26.9119 3.43914 27.3333 4.5 27.3333H20.5C21.5609 27.3333 22.5783 26.9119 23.3284 26.1618C24.0786 25.4116 24.5 24.3942 24.5 23.3333V11.6667C24.5026 11.1008 24.3851 10.5407 24.1553 10.0236C23.9254 9.50644 23.5885 9.04395 23.1667 8.66668ZM15.1667 24.6667H9.83334V18C9.83334 17.6464 9.97381 17.3072 10.2239 17.0572C10.4739 16.8072 10.813 16.6667 11.1667 16.6667H13.8333C14.187 16.6667 14.5261 16.8072 14.7761 17.0572C15.0262 17.3072 15.1667 17.6464 15.1667 18V24.6667ZM21.8333 23.3333C21.8333 23.687 21.6929 24.0261 21.4428 24.2762C21.1928 24.5262 20.8536 24.6667 20.5 24.6667H17.8333V18C17.8333 16.9391 17.4119 15.9217 16.6618 15.1716C15.9116 14.4214 14.8942 14 13.8333 14H11.1667C10.1058 14 9.08839 14.4214 8.33824 15.1716C7.5881 15.9217 7.16667 16.9391 7.16667 18V24.6667H4.5C4.14638 24.6667 3.80724 24.5262 3.5572 24.2762C3.30715 24.0261 3.16667 23.687 3.16667 23.3333V11.6667C3.16691 11.4774 3.20746 11.2903 3.28563 11.1178C3.36379 10.9454 3.47778 10.7916 3.62 10.6667L11.62 3.66668C11.8633 3.45292 12.1761 3.33503 12.5 3.33503C12.8239 3.33503 13.1367 3.45292 13.38 3.66668L21.38 10.6667C21.5222 10.7916 21.6362 10.9454 21.7144 11.1178C21.7925 11.2903 21.8331 11.4774 21.8333 11.6667V23.3333Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <span>Academy</span>
+            </label>
+
+            <!-- Item 2 -->
+            <input type="radio" name="slideItem" id="slide-item-2" class="slide-toggle"${itsItem2 ? ' checked' : ''} />
+            <label for="slide-item-2">
+                <div class="reinv_svg-container">
+                    <svg width="80%" height="80%" viewBox="0 0 27 22" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M1.50002 11H9.50002C9.85364 11 10.1928 10.8595 10.4428 10.6095C10.6929 10.3594 10.8334 10.0203 10.8334 9.66668V1.66668C10.8334 1.31305 10.6929 0.973917 10.4428 0.723868C10.1928 0.47382 9.85364 0.333344 9.50002 0.333344H1.50002C1.1464 0.333344 0.80726 0.47382 0.557211 0.723868C0.307163 0.973917 0.166687 1.31305 0.166687 1.66668V9.66668C0.166687 10.0203 0.307163 10.3594 0.557211 10.6095C0.80726 10.8595 1.1464 11 1.50002 11ZM2.83335 3.00001H8.16669V8.33334H2.83335V3.00001ZM14.8334 5.66668H25.5C25.8536 5.66668 26.1928 5.5262 26.4428 5.27615C26.6929 5.0261 26.8334 4.68697 26.8334 4.33334C26.8334 3.97972 26.6929 3.64058 26.4428 3.39053C26.1928 3.14049 25.8536 3.00001 25.5 3.00001H14.8334C14.4797 3.00001 14.1406 3.14049 13.8905 3.39053C13.6405 3.64058 13.5 3.97972 13.5 4.33334C13.5 4.68697 13.6405 5.0261 13.8905 5.27615C14.1406 5.5262 14.4797 5.66668 14.8334 5.66668ZM14.8334 19H1.50002C1.1464 19 0.80726 19.1405 0.557211 19.3905C0.307163 19.6406 0.166687 19.9797 0.166687 20.3333C0.166687 20.687 0.307163 21.0261 0.557211 21.2762C0.80726 21.5262 1.1464 21.6667 1.50002 21.6667H14.8334C15.187 21.6667 15.5261 21.5262 15.7762 21.2762C16.0262 21.0261 16.1667 20.687 16.1667 20.3333C16.1667 19.9797 16.0262 19.6406 15.7762 19.3905C15.5261 19.1405 15.187 19 14.8334 19ZM25.5 13.6667H1.50002C1.1464 13.6667 0.80726 13.8072 0.557211 14.0572C0.307163 14.3073 0.166687 14.6464 0.166687 15C0.166687 15.3536 0.307163 15.6928 0.557211 15.9428C0.80726 16.1929 1.1464 16.3333 1.50002 16.3333H25.5C25.8536 16.3333 26.1928 16.1929 26.4428 15.9428C26.6929 15.6928 26.8334 15.3536 26.8334 15C26.8334 14.6464 26.6929 14.3073 26.4428 14.0572C26.1928 13.8072 25.8536 13.6667 25.5 13.6667ZM25.5 8.33334H14.8334C14.4797 8.33334 14.1406 8.47382 13.8905 8.72387C13.6405 8.97392 13.5 9.31306 13.5 9.66668C13.5 10.0203 13.6405 10.3594 13.8905 10.6095C14.1406 10.8595 14.4797 11 14.8334 11H25.5C25.8536 11 26.1928 10.8595 26.4428 10.6095C26.6929 10.3594 26.8334 10.0203 26.8334 9.66668C26.8334 9.31306 26.6929 8.97392 26.4428 8.72387C26.1928 8.47382 25.8536 8.33334 25.5 8.33334Z"
+                            fill="currentColor" />
+                    </svg>
+
+                </div>
+                <span>Blog</span>
+            </label>
+
+            <!-- Item 3 -->
+            <input type="radio" name="slideItem" id="slide-item-3" class="slide-toggle"${itsItem3 ? ' checked' : ''} />
+            <label for="slide-item-3">
+                <div class="reinv_svg-container">
+                    <svg width="100%" height="100%" viewBox="0 0 27 28" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13.5 0.666656C10.8629 0.666656 8.28508 1.44864 6.09242 2.91373C3.89977 4.37881 2.1908 6.46119 1.18163 8.89754C0.172464 11.3339 -0.0915803 14.0148 0.422889 16.6012C0.937359 19.1876 2.20724 21.5634 4.07194 23.4281C5.93664 25.2928 8.31241 26.5627 10.8988 27.0771C13.4852 27.5916 16.1661 27.3276 18.6025 26.3184C21.0388 25.3092 23.1212 23.6002 24.5863 21.4076C26.0514 19.2149 26.8334 16.6371 26.8334 14C26.8294 10.465 25.4234 7.07587 22.9238 4.57624C20.4241 2.07661 17.035 0.670588 13.5 0.666656ZM13.5 24.6667C11.3904 24.6667 9.32807 24.0411 7.57394 22.869C5.81982 21.6969 4.45265 20.031 3.64531 18.0819C2.83798 16.1329 2.62674 13.9882 3.03832 11.919C3.44989 9.8499 4.46579 7.94928 5.95755 6.45752C7.44931 4.96576 9.34993 3.94986 11.4191 3.53828C13.4882 3.1267 15.6329 3.33794 17.582 4.14527C19.5311 4.95261 21.197 6.31978 22.369 8.07391C23.5411 9.82803 24.1667 11.8903 24.1667 14C24.1635 16.828 23.0386 19.5392 21.0389 21.5389C19.0392 23.5386 16.328 24.6634 13.5 24.6667ZM13.5 13.3333C13.1464 13.3333 12.8073 13.4738 12.5572 13.7238C12.3072 13.9739 12.1667 14.313 12.1667 14.6667V18.6667C12.1667 19.0203 12.3072 19.3594 12.5572 19.6095C12.8073 19.8595 13.1464 20 13.5 20C13.8536 20 14.1928 19.8595 14.4428 19.6095C14.6929 19.3594 14.8334 19.0203 14.8334 18.6667V14.6667C14.8334 14.313 14.6929 13.9739 14.4428 13.7238C14.1928 13.4738 13.8536 13.3333 13.5 13.3333ZM13.5 7.99999C13.1704 7.99999 12.8482 8.09774 12.5741 8.28087C12.3 8.46401 12.0864 8.72431 11.9602 9.02885C11.8341 9.33339 11.8011 9.6685 11.8654 9.99181C11.9297 10.3151 12.0884 10.6121 12.3215 10.8452C12.5546 11.0783 12.8516 11.237 13.1749 11.3013C13.4982 11.3656 13.8333 11.3326 14.1378 11.2065C14.4424 11.0803 14.7027 10.8667 14.8858 10.5926C15.0689 10.3185 15.1667 9.99629 15.1667 9.66666C15.1667 9.22463 14.9911 8.8007 14.6785 8.48814C14.366 8.17558 13.9421 7.99999 13.5 7.99999Z"
+                            fill="currentColor" />
+                    </svg>
+
+                </div>
+                <span>Info</span>
+            </label>
+
+            <!-- Item 4 -->
+            <input type="radio" name="slideItem" id="slide-item-4" class="slide-toggle"${itsItem4 ? ' checked' : ''} />
+            <label for="slide-item-4">
+                <div class="reinv_svg-container">
+                    <svg width="100%" height="100%" viewBox="0 0 27 28" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13.5 0.666656C10.914 0.67157 8.3852 1.4284 6.22166 2.84497C4.05812 4.26154 2.35322 6.27671 1.31461 8.64502C0.276007 11.0133 -0.051474 13.6325 0.37206 16.1837C0.795593 18.7348 1.95186 21.1077 3.70002 23.0133C4.94859 24.3667 6.46395 25.4468 8.15061 26.1856C9.83727 26.9244 11.6587 27.3058 13.5 27.3058C15.3414 27.3058 17.1628 26.9244 18.8494 26.1856C20.5361 25.4468 22.0515 24.3667 23.3 23.0133C25.0482 21.1077 26.2045 18.7348 26.628 16.1837C27.0515 13.6325 26.724 11.0133 25.6854 8.64502C24.6468 6.27671 22.9419 4.26154 20.7784 2.84497C18.6148 1.4284 16.0861 0.67157 13.5 0.666656ZM13.5 24.6667C10.738 24.6625 8.08524 23.587 6.10002 21.6667C6.70275 20.1994 7.72807 18.9444 9.0457 18.0612C10.3633 17.178 11.9138 16.7064 13.5 16.7064C15.0863 16.7064 16.6367 17.178 17.9544 18.0612C19.272 18.9444 20.2973 20.1994 20.9 21.6667C18.9148 23.587 16.2621 24.6625 13.5 24.6667ZM10.8334 11.3333C10.8334 10.8059 10.9898 10.2903 11.2828 9.8518C11.5758 9.41327 11.9923 9.07148 12.4795 8.86964C12.9668 8.66781 13.503 8.615 14.0203 8.7179C14.5375 8.82079 15.0127 9.07477 15.3856 9.44771C15.7586 9.82065 16.0126 10.2958 16.1155 10.8131C16.2183 11.3304 16.1655 11.8665 15.9637 12.3538C15.7619 12.8411 15.4201 13.2576 14.9815 13.5506C14.543 13.8436 14.0274 14 13.5 14C12.7928 14 12.1145 13.719 11.6144 13.2189C11.1143 12.7188 10.8334 12.0406 10.8334 11.3333ZM22.7134 19.3333C21.5221 17.2957 19.6886 15.7107 17.5 14.8267C18.1789 14.0569 18.6213 13.1075 18.774 12.0926C18.9267 11.0776 18.7833 10.0401 18.361 9.10465C17.9387 8.16917 17.2555 7.3754 16.3932 6.81861C15.531 6.26182 14.5264 5.96566 13.5 5.96566C12.4736 5.96566 11.4691 6.26182 10.6068 6.81861C9.74458 7.3754 9.06132 8.16917 8.63902 9.10465C8.21673 10.0401 8.07334 11.0776 8.22606 12.0926C8.37879 13.1075 8.82113 14.0569 9.50002 14.8267C7.31149 15.7107 5.47798 17.2957 4.28669 19.3333C3.33728 17.7161 2.83565 15.8753 2.83336 14C2.83336 11.171 3.95716 8.45791 5.95755 6.45752C7.95794 4.45713 10.671 3.33332 13.5 3.33332C16.329 3.33332 19.0421 4.45713 21.0425 6.45752C23.0429 8.45791 24.1667 11.171 24.1667 14C24.1644 15.8753 23.6628 17.7161 22.7134 19.3333Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <span>Education</span>
+            </label>
+
+            <div class="clear"></div>
+
+            <!-- Bar -->
+            <div class="slider">
+                <div class="bar"></div>
+            </div>
+
+            </nav>
+
+        `))
+
+        let input_item1 = document.querySelector('#slide-item-1');
+
+        let input_item2 = document.querySelector('#slide-item-2');
+
+        let input_item3 = document.querySelector('#slide-item-3');
+
+        let input_item4 = document.querySelector('#slide-item-4');
+
+        input_item1.addEventListener('click', () => {
+            if (item1_settings[0] !== currentURL) {
+                window.location.replace(item1_settings[0]);
+            }
+        });
+
+        input_item2.addEventListener('click', () => {
+            if (item2_settings[0] !== currentURL) {
+                window.location.replace(item2_settings[0]);
+            }
+        });
+
+        input_item3.addEventListener('click', () => {
+            if (item3_settings[0] !== currentURL) {
+                window.location.replace(item3_settings[0]);
+            }
+        });
+
+        input_item4.addEventListener('click', () => {
+            if (item4_settings[0] !== currentURL) {
+                window.location.replace(item4_settings[0]);
+            }
+        });
+
+        function createElementFromHTML(htmlString) {
+            let div = document.createElement('div');
+            div.innerHTML = htmlString.trim();
+
+            // Change this to div.childNodes to support multiple top-level nodes.
+            return div.firstChild;
+        };
+    }
+</script>
+
+
+
+<style>
+    .reinv_empty_block {
+        height:58.8px;
+    }
+
+    #cookiescript_badge {
+        display: none !important;
+    }
+
+    label {
+        margin-bottom: .2rem;
+    }
+
+    .is-hidden-block {
+        display: none;
+    }
+
+    .reinv_mobile-menu {
+        background-color: #ffffff;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 99999;
+        border-radius: 12px 12px 0px 0px;
+    }
+
+    @media (min-width: 769px) {
+        .reinv_mobile-menu, .reinv_empty_block {
+            display: none;
+        }
+
+    }
+
+    .reinv_svg-container {
+        height: 15.2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap');
+
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+
+    .slide-toggle {
+        display: none;
+    }
+
+    .slidemenu {
+        /* font-family: arial, sans-serif; */
+        max-width: 100%;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    .slidemenu label {
+        width: 25%;
+        text-align: center;
+        display: block;
+        float: left;
+        color: #565656;
+        opacity: 1;
+
+    }
+
+    /* .slidemenu label:hover {
+        cursor: pointer;
+        color: #666;
+    } */
+
+    .slidemenu label span {
+        display: block;
+        padding-top: 4px;
+        font-size: 13px;
+        font-family: 'Raleway', sans-serif;
+        /* font-weight: 700; */
+        margin-top: 0px;
+    }
+
+    /* .slide-toggle+span {
+        font-weight: 500;
+    }
+
+    .slide-toggle:checked+span {
+        font-weight: 700;
+    } */
+
+    /* .slidemenu .slide-toggle:checked div svg {
+        color: rgb(229, 5, 32);
+    } */
+
+    /* .slidemenu .slide-toggle div svg {
+        color: rgb(0, 0, 0);
+    } */
+
+    /* .slidemenu .slide-toggle svg {
+        fill: rgb(0, 0, 0);
+    } */
+
+    /*Bar Style*/
+
+    .slider {
+        width: 100%;
+        height: 3px;
+        display: block;
+        /* margin-top: 3px; */
+    }
+
+    .slider .bar {
+        width: 25%;
+        height: 3px;
+        background: #E50520;
+    }
+
+    /* Animations */
+    .slidemenu label,
+    .slider .bar {
+        transition: all 200ms ease-in-out;
+        -webkit-transition: all 200ms ease-in-out;
+        -moz-transition: all 200ms ease-in-out;
+    }
+
+    /*Toggle*/
+
+    .slidemenu .slide-toggle:checked+label {
+        opacity: 1;
+        color: #E50520;
+        font-weight: 700;
+    }
+
+    .slidemenu .slider .bar {
+        margin-left: -50%;
+    }
+
+    .slidemenu #slide-item-1:checked~.slider .bar {
+        margin-left: 0;
+    }
+
+    .slidemenu #slide-item-2:checked~.slider .bar {
+        margin-left: 25%;
+    }
+
+    .slidemenu #slide-item-3:checked~.slider .bar {
+        margin-left: 50%;
+    }
+
+    .slidemenu #slide-item-4:checked~.slider .bar {
+        margin-left: 75%;
+    }
+</style>
